@@ -12,6 +12,12 @@ resource "openstack_compute_floatingip_v2" "os_master_floatip" {
   pool = "${var.network_poolname}"
 }
 
+resource "openstack_networking_network_v2" "os_network_internal" {
+    name = "private"
+    admin_state_up = "true"
+    shared = "false"
+}
+
 resource "openstack_compute_instance_v2" "os-master" {
   count = "1"
   name = "os-master"
@@ -24,5 +30,8 @@ resource "openstack_compute_instance_v2" "os-master" {
   volume {
 	volume_id = "${openstack_blockstorage_volume_v1.os_master_volume.id}"
 	device = "/dev/vdb"
+  }
+  network {
+    uuid = "${openstack_networking_network_v2.network-os_network_internal.id}"
   }
 }
