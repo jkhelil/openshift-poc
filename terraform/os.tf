@@ -32,6 +32,6 @@ resource "openstack_compute_instance_v2" "os-master" {
 	device = "/dev/vdb"
   }
   network {
-    uuid = "${openstack_networking_network_v2.network-os_network_internal.id}"
+    uuid = "${openstack_networking_network_v2.os_network_internal.id}"
   }
 }
