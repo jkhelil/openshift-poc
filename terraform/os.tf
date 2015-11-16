@@ -63,7 +63,7 @@ resource "openstack_compute_instance_v2" "os-minion" {
   }
   floating_ip = "${element(openstack_compute_floatingip_v2.os_minion_floatip.*.address, count.index)}"  
   volume {
-	volume_id = "${element(openstack_blockstorage_volume_v1.os_minion_volume.id,count.index)}"
+	volume_id = "${element(openstack_blockstorage_volume_v1.os_minion_volume.*.id,count.index)}"
 	device = "/dev/vdb"
   }
   network {
