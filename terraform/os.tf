@@ -15,7 +15,7 @@ resource "openstack_compute_floatingip_v2" "os_master_floatip" {
 resource "openstack_compute_instance_v2" "os-master" {
   count = "1"
   name = "os-master"
-  image_name = "centos-7.0_x86_64-cnftools_delivery"
+  image_name = "centos-6.6_x86_64-cnftools_delivery"
   flavor_name = "m1.medium"
   metadata {
     type = "os-master"
