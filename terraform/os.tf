@@ -38,7 +38,7 @@ resource "openstack_compute_floatingip_v2" "os_master_floatip" {
 resource "openstack_compute_instance_v2" "os-master" {
   count = "1"
   name = "os-master"
-  image_name = "centos-6.6_x86_64-cnftools_delivery"
+  image_name = "${var.image_name}"
   flavor_name = "m1.medium"
   metadata {
     type = "os-master"
@@ -56,7 +56,7 @@ resource "openstack_compute_instance_v2" "os-master" {
 resource "openstack_compute_instance_v2" "os-minion" {
   count = "3"
   name = "${format("os-minion-%02d", count.index + 1)}"
-  image_name = "centos-6.6_x86_64-cnftools_delivery"
+  image_name = "${var.image_name}"
   flavor_name = "m1.medium"
   metadata {
     type = "${format("os-minion-%02d", count.index + 1)}"
