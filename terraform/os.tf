@@ -37,7 +37,7 @@ resource "openstack_compute_floatingip_v2" "os_master_floatip" {
 
 resource "openstack_compute_instance_v2" "os-master" {
   count = "1"
-  name = "os-master"
+  name = "os-master.example.com"
   image_name = "${var.image_name}"
   flavor_name = "m1.medium"
   metadata {
@@ -55,7 +55,7 @@ resource "openstack_compute_instance_v2" "os-master" {
 
 resource "openstack_compute_instance_v2" "os-minion" {
   count = "3"
-  name = "${format("os-minion-%02d", count.index + 1)}"
+  name = "${format("os-minion-%02d.example.com", count.index + 1)}"
   image_name = "${var.image_name}"
   flavor_name = "m1.medium"
   metadata {
