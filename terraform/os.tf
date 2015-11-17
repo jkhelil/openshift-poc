@@ -40,6 +40,7 @@ resource "openstack_compute_instance_v2" "os-master" {
   name = "os-master.example.com"
   image_name = "${var.image_name}"
   flavor_name = "m1.medium"
+  key_pair = "adminapptest"
   metadata {
     type = "os-master"
   }
@@ -58,6 +59,7 @@ resource "openstack_compute_instance_v2" "os-minion" {
   name = "${format("os-minion-%02d.example.com", count.index + 1)}"
   image_name = "${var.image_name}"
   flavor_name = "m1.medium"
+  key_pair = "adminapptest"
   metadata {
     type = "${format("os-minion-%02d", count.index + 1)}"
   }
