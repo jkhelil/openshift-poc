@@ -1,0 +1,35 @@
+allowDisabledDocker: false
+apiVersion: v1
+dnsDomain: {{ osn_cluster_dns_domain }}
+dnsIP: {{ osn_cluster_dns_ip }}
+dockerConfig:
+  execHandlerName: ""
+iptablesSyncPeriod: "{{ openshift.node.iptables_sync_period }}"
+imageConfig:
+  format: {{ openshift.node.registry_url }}
+  latest: false
+kind: NodeConfig
+{% if openshift.node.kubelet_args is defined and openshift.node.kubelet_args %}
+kubeletArguments: {{ openshift.node.kubelet_args | to_json }}
+{% endif %}
+masterKubeConfig: system:node:{{ openshift.common.hostname }}.kubeconfig
+{% if openshift.common.use_openshift_sdn %}
+networkPluginName: {{ openshift.common.sdn_network_plugin_name }}
+{% endif %}
+# networkConfig struct introduced in origin 1.0.6 and OSE 3.0.2 which
+# deprecates networkPluginName above. The two should match.
+networkConfig:
+   mtu: {{ openshift.node.sdn_mtu }}
+{% if openshift.common.use_openshift_sdn %}
+   networkPluginName: {{ openshift.common.sdn_network_plugin_name }}
+{% endif %}
+nodeIP: {{ openshift.common.ip }}
+nodeName: {{ openshift.common.hostname | lower }}
+podManifestConfig:
+servingInfo:
+  bindAddress: 0.0.0.0:10250
+  certFile: server.crt
+  clientCA: ca.crt
+  keyFile: server.key
+volumeDirectory: {{ openshift.common.data_dir }}/openshift.local.volumes
+{% include 'partials/kubeletArguments.j2' %}

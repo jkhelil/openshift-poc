@@ -1,0 +1,38 @@
+---
+deployment_vars:
+  origin:
+    # centos-7, requires marketplace
+    image: ami-96a818fe
+    image_name:
+    region: us-east-1
+    ssh_user: centos
+    sudo: yes
+    keypair: libra
+    type: m4.large
+    security_groups: [ 'public' ]
+    vpc_subnet:
+    assign_public_ip:
+  online:
+    # private ami
+    image: ami-7a9e9812
+    image_name: openshift-rhel7_*
+    region: us-east-1
+    ssh_user: root
+    sudo: no
+    keypair: libra
+    type: m4.large
+    security_groups: [ 'public' ]
+    vpc_subnet:
+    assign_public_ip:
+  enterprise:
+    # rhel-7.1, requires cloud access subscription
+    image: ami-10663b78
+    image_name:
+    region: us-east-1
+    ssh_user: ec2-user
+    sudo: yes
+    keypair: libra
+    type: m4.large
+    security_groups: [ 'public' ]
+    vpc_subnet:
+    assign_public_ip:
